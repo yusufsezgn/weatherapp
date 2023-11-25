@@ -4,6 +4,8 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
+      <title>Weather Forecast</title>
+      <meta about='weather forecast'  />
       <body>
         <Main />
         <NextScript />
