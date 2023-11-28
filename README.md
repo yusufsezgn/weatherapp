@@ -1,4 +1,4 @@
-# Crystal Creek
+# Weather forecast application
 
 ## What's it ?
 
