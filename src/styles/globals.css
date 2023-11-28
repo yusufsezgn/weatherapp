@@ -19,7 +19,7 @@
 }
 
 body {
-  @apply font-sans m-0 p-0
+  @apply font-sans m-0 p-0 bg-[#333]
 }
 
 

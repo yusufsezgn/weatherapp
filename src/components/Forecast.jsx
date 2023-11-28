@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { fillInfo } from "@/lib/utils";
 import { useAppContext } from "@/context/Wrapper";
 import { Suspense, useEffect, useState } from "react";
 import Loading from "./Loading";
+import axios from "axios";
 
 const Forecast = () => {
   const [location, setLocation] = useState(null);
@@ -10,21 +10,45 @@ const Forecast = () => {
     useAppContext();
   const [celActive, setCelActive] = useState(true);
 
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocation({ longitude, latitude });
-          fillInfo;
-        },
-        (error) => {
-          alert("Location information could not be obtained");
-        }
-      );
-    } else {
-      alert("Your browser does not support location information");
+  const fillInfo = async () => {
+    const options = {
+      method: "GET",
+      url: "https://weatherapi-com.p.rapidapi.com/current.json",
+      params: { q: `${location?.latitude},${location?.longitude}` },
+      headers: {
+        "X-RapidAPI-Key": "9452a09c0bmsh844d338fef42946p1419c1jsnb844a2c88c9d",
+        "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      setInfos(response?.data);
+      setCity(response?.data?.location.name);
+    } catch (error) {
+      console.error(error);
     }
+  };
+
+  useEffect(() => {
+    const getForecast = async () => {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+            setLocation({ longitude, latitude });
+            fillInfo()
+          },
+          (error) => {
+            alert("Location information could not be obtained");
+          }
+        );
+      } else {
+        alert("Your browser does not support location information");
+      }
+    };
+
+    getForecast();
   }, []);
 
   return (
