@@ -2,32 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 22 11% 85%;
+    --foreground: 180 16% 7%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 194 46% 73%;
+    --primary-foreground: 180 16% 7%;
+
+    --secondary: 193 96% 22%;
+    --secondary-foreground: 180 16% 7%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 334 44% 25%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+@layer base {
+  body {
+    @apply m-0 p-0 scroll-smooth bg-background;
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .landingText {
+    -webkit-animation: landingText 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+      both;
+    animation: landingText 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  .entranceInput {
+    animation: entranceInput 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  @keyframes entranceInput {
+    0% {
+      transform: translateY(1000px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @-webkit-keyframes landingText {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-filter: blur(12px);
+      filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0);
+      filter: blur(0);
+      opacity: 1;
+    }
+  }
+  @keyframes landingText {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-filter: blur(12px);
+      filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0);
+      filter: blur(0);
+      opacity: 1;
+    }
   }
 }
